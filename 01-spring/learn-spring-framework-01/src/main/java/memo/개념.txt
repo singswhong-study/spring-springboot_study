@@ -1,0 +1,21 @@
+1. SpringContainer 란?
+    - 스프링 빈, 빈 생명주기를 관리
+    1) Bean Factory
+        - 기본 spring 컨테이너
+        - 메모리에 심한 제약이 있는 IOT 어플리케이션 등에나 사용..
+    2) Application Context
+        - 엔터프라이즈 전용기능이 있는 고급 spring 컨테이너
+        1) 웹어플리케이션을 쉽게 사용하기 위함
+        2) AOP 또는 spring 측면 지향 프로그래밍과 통합되도록 하려할때
+        3) 웹서비스나 restful, msa 도 대부분 이런걸로. 예전에는 beanFactory를 직접사용했지만..
+
+2. POJO, Java Bean, Spring Bean
+    1) POJO : 일반적인 자바 객체
+        - 아무런 제약이 없는 객체
+    2) JavaBean : Enterprise Java Bean
+        - 기본 생성자 필요
+        - getter and setter 필요 => 프로퍼티에 접근가능
+        - Serializable 인터페이스 사용
+    3) SpringBean
+        - 스프링에서 관리하게 되는 Bean 객체
+        - IOC container(Bean Factory 또는 Application Context) 에서 관리되는 객체

@@ -1,0 +1,99 @@
+1. @Primary VS @Qualifier VS @Autowired
+    1) @Primary
+        - 여러 후보가 있을 경우 해당 어노테이션이 있는놈이 우선권을 가짐
+
+    2) @Qualifier
+        - 특정 bean이 autowired 되어야 함.
+        - @Primary 보다 우선권이 "높다"
+        - @Qualifier(name = "???") 로 지정된 빈이 없다면, 필요한 bean네임을 소문자로 표기하면 됨. @Qualifier("mario");
+
+    3) @Autowired
+        - 가장 적합한 놈을 찾아서 줌.(타입기준)
+        - 같은 타입의 빈이 여러개면 NoUniqueBeanDefinitionException
+        - @Primary가 있는놈을 우선 선택
+
+
+
+2. Dependency Injection 타입
+    1) 생성자
+    2) Setter
+    3) Field :  리플렉션을 사용해서 주입
+
+3. @Component : 추가할때마다 Spring Bean 이 생성되고 Spring Framework에 의해 관리됨
+
+4. @ComponentScan : 컴포넌트의 위치를 정의. 패키지 이름을 명시적으로 지정. (없으면 해당 패키지)
+
+5. Dependency Injection : Bean와 의존성을 식별하고 wiring
+
+6. Bean 의 지연로딩
+    - Bean의 기본 초기화 Eager. 즉시 로딩 => 즉시 로딩 권장. 어플리케이션 실행시 오류 감지 해야됨.
+    - @Lazy 를 사용하면 지연 초기화. 해당 빈에 접근할때 로딩
+
+7. @Lazy 어노테이션
+    - 자주사용되지 않는다. 꼭 필요할때만.
+    - @Component, @Bean 이 사용되는 모든곳에서 사용가능
+    - @Configuration 클래스에도 사용가능
+    - 프록시가 실제 객체 대신에 주입
+
+8. Bean의 scope 타입
+    1) Singleton
+        - Spring IoC 컨테이너당 객체 인스턴스가 1개
+        - Stateless beans
+
+    2) Prototype
+        - Spring IoC 컨테이너당 객체 인스턴스가 여러개. 호출될때마다 생성.
+        - Stateful beans
+
+    # Web-Aware Application 에서만 사용
+    3) Reqeust - Http request 당 객체 인스턴스 생성
+    4) Session - Http Session 당 객체 인스턴스 생성
+    5) Websocket - 웹소켓 인스턴스 당 객체 인스턴스 생성
+
+9. 자바 Singleton vs Spring Singleton
+    - 자바는 디자인 패턴. GOF. Gang Of Four JVM 에서 객체가 1개
+    - Sring 은 IoC 컨테이너당 객체 인스턴스가 1개
+    - 의미는 달라도 대부분은 같은 의미. But. JVM에 Spring IoC Container 가 여러개 올라가는 경우는 완전 다른의미.
+
+10. 자카르타 CDI : Context & Dependency Injection
+    1) CDI is a specification. Interface
+        - SpringFrameWork implements CDI 같은 개념
+    2) 중요한 Inject API Annotations
+        - Inject : Autowired in Spring과 유사함
+        - Named : Component in Spring 과 유사함
+        - Qualifier
+        - Scope
+        - Singleton
+
+11. Stereotype Annotations : @Component
+
+    1) 제네릭어노테이션. 모든 클래스에 사용가능
+        - 다양하게 나뉘어져 있음
+            @Service : 비지니스 로직
+            @Controller : 웹 컨트롤러
+            @Repository : 데이터베이스와 통신하는경우.
+    2) 어떤걸 사용해야 할까? 구체적인 개념에 맞게 사용.
+        - 의도하는 바를 명확히 해줌
+        - AOP 으로 어노테이션을 감지하고 부가적인 동작이 가능하게함.
+            ex) Repository는 springframework에서 자동으로 JDBC 에외 변환 기능에 연결함.
+
+....
+@Configuraion : 자바 설정을 만듬. 메서드를 맘대로 추가 가능. @Bean 이 붙은놈들의 반환값을 자동으로 Spring Bean 생성.
+@ComponentScan : @Component 를 스캔할 특정 패키지를 지정. 선언하지 않으면 해당 패키지에서 검색
+@Bean
+@Component : 해당 클래스가 컴포넌트임을 명시
+@Service : 비즈니스 논리가 담긴 Component
+@Controller : 웹컨트롤러라는 명시적 Component
+@Repository : 데이터 베이스와 연관된 Component
+@Primary : 여러 Bean 이 단일 값 의존성에 자동 연결될 후보일때 우선순위 결정.
+@Qualifier : 자동 연결 시 후보 Bean의 한정자로 필드나 매개변수에 사용. 구체적임.
+@Lazy : Spring Bean은 일반적으로 즉시초기화. 지연시킬때 사용.
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) : 빈의 생성 타입 정의.
+    - 프로토 : 참조할때마다 새 인스턴스 객체 생성.
+    - 싱글톤 : IoC 컨테이너에 특정 Bean 하나만 설정.
+@PostConstructor : 의존성 주입이 실행된 이후 초기화를 위해 실행될 메서드.
+@PreDestory : 컨테이너에서 인스턴스 삭제 할때의 콜백
+@Named : CDI규격. @Component와 유사함
+@inject : CDI규격. @Autowired와 유사함
+
+
+
