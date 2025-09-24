@@ -1,0 +1,45 @@
+1. 왜 스프링 부트인가?
+    1) Spring 에서 설정하던 부분들을 대부분 라이브러리로 제공하여 쉽게 설정가능
+    2) 톰캣이 내장되어있어서 was를 따로 올릴 필요가 없다 =>war 배포하지 않고 jar로 만들어서 바로 올리기
+    3) Spring Initializer, StarterProject, Auto Configuration, DevTools 등으로 의존성 설정이나 편의성 증대
+    4) profiles, ConfigurationProperties 등으로 다양한 환경옵션 설정
+    5) monitoring (Spring Boot Actuator)
+
+2. Spring Boot Starter Project : 편리한 의존성 디스크립터..
+    - 웹, REST 어플리케이션 등을 빌드하는데 필요한 의존성이 정의되어 있음
+    - 톰캣이나 json 설정등도 포함.
+    - JPA나 JDBC 설정 등도 사용가능
+    - 시큐리티도 사용 가능
+
+3. Spring Boot Auto Configuration
+    1) 기존에는 DispatcherServlet, ComponentScan, DataSources, JsonConversion..여러 설정을 해야했음
+    2) Auto Configuration
+        - 클래스 경로에 있는 프레임워크에 따라 설정
+        - 기존 설정을 사용하면서도 오버라이딩 해서 사용 가능
+        - springboot-autoconfiguration... 하위 jar 들이 그 역할.
+        => application.properties 등에서 설정.
+
+4. Spring Boot DevTools
+    1) 코드 변경 시 자동으로 서버 리스타트 적용 => 개발자의 생산성 증대
+    .. 인텔리제이에서 잘 안되는군;
+
+5. Using Profiles
+    - dev, qa, stage, prod 등 환경설정을 따로 구성해둘 수 있다.
+    - spring.profiles.active=prod 같은 설정으로 디폴트 설정을 덮어쓰고 사용.
+    - properties 설정을 ConfigurationProperties와 같이 사용하면 굉장히 유용하다
+
+6. Embedded Server
+    - 자바설치하고 jar 실행만 하면 끝.
+    - mvn clean install 실행 시
+        #Building jar: \target\learn-spring-springboot-0.0.1-SNAPSHOT.jar 파일 생성.
+
+7. Monitor Applications using Spring Boot Actuator
+    - 프로젝트를 모니터링 가능
+    - beans : spring bean 확인가능
+    - health : 상태정보 확인가능
+    - metrics : 애플리케이션과 관계되는 metircs 확인
+    - mapping : 요청 매핑 관련 세부사항을 확인
+
+    => http://localhost:8080/actuator 에서 확인가능. 더많은 기능은 application.properties에 설정해야함.
+
+
