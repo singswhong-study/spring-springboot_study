@@ -1,0 +1,35 @@
+1. Web 동작 원리
+    1) 사용자가 URL 입력, 버튼 클릭 등으로 요청 발생
+        (1) 브라우저는 DNS 조회를 통해 서버의 IP 주소를 획득하고, Http 프로토콜을 통해 요청을 구성
+            - RequestLine: Get, Post, URI, Http Version 등
+            - Header : 쿠키, 인증정보, User-agent 등
+            - Body  : Post, Put 데이터
+    2) Server, Servlet Container 가 요청을 핸들링한다
+        (1) 네트워크 레벨: 클라이언트와 서버 간 TCP 3-way handshake를 통해 연결 수립.
+            - HTTPS 요청 시 SSL/TLS Handshake를 통해 암호화된 통신 채널을 설정.
+            - 이후 HTTP 헤더 파싱 등을 진행하며 네트워크 스택을 통해 서버의 웹 서버(예: Apache, Nginx)로 요청 전송.
+        (2) 웹 서버 및 서블릿 컨테이너
+            - 웹 서버(예: Nginx, Apache)는 정적 파일을 처리
+            - 동적 요청을 WAS(Web Application Server)의 서블릿 컨테이너(예: Tomcat, Jetty)로 전달.
+            - 서블릿 컨테이너는 TCP 패킷 수신 후 HTTP 요청을 파싱하여 HttpServletRequest 객체를 생성.
+            - TCP 패킷수신 -> HTTP 요청 파싱 -> HttpServletRequest 생성
+        (3) DispatcherServlet
+            - 디스패처 서블릿에서 받은 URL 등을 기반으로 HandlerMapping에서 매핑 확인
+            - 인터셉터 호출(preHandle, postHandle)
+            - HandlerAdapter 에서 컨트롤러 메서드 호출 및 파라미터 바인딩.
+            - 비즈니스 호출 및 ViewResoler 로 view 호출
+            - 모델데이터 적용 및 렌더링
+            * Dispatcher 전/후로 ServletFilter Chain.  => 인증/권한 체크 및 CORS, 캐싱 등
+    3) Server 가 응답을 리턴한다
+        (1) HttpResponseResponse 생성
+            - status code, header, body 등
+        (2) 응답 전송 및 브라우저 렌더링
+            - 서블릿 컨테이너는 HttpServletResponse 객체의 내용을 기반으로 HTTP 응답 패킷을 생성
+            - 웹 서버를 거쳐 클라이언트(브라우저)로 전송.
+            - 브라우저는 수신한 응답(HTML, CSS, JavaScript 등)을 파싱하고 렌더링
+
+
+
+
+
+
