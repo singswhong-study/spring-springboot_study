@@ -1,0 +1,22 @@
+1. JDBC
+    - SQL query를 작성해야함
+    - 자바코드도 많이 필요하게됨 => statement, trycatch등등
+
+2. Spring JDBC
+    - SQL query를 작성해야함
+    - But, 자바코드는 확실히 줄었다 => 기본 설정은 다 해줌.
+
+3. JPA
+    - 쿼리를 메서드로 추상적으로 사용가능 findById, findUserAndAge
+    - 테이블과 엔티티를 매핑해서 사용
+
+4. Spring Data JPA
+    - JPA 보다 더 간편
+    - EntityManager도 신경쓸 필요 없음.
+
+5. Hibernate vs JPA
+    1) JPA
+        - JPA는 기술명세. 즉 API
+        - 테이블로 매핑하는 방식을 정의
+    2) Hibernate
+        -  JPA에서 정의된 방식을 "구현", 즉 구현체
